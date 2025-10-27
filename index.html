@@ -5,80 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FROST // Countdown</title>
   <style>
-    :root{
+    :root {
+      --bg:#04070a;
+      --txt:#bde9ef;
+      --muted:#6f9aa1;
+      --hint-bg:#00000000;
+      --hint-txt:#bde9ef;
+    }
+
     body {
       user-select: none;
       -webkit-user-select: none;
       -moz-user-select: none;
-    }
-      --bg:#04070a;
-      --txt:#bde9ef;
-      --muted:#6f9aa1;
-      --hint-bg: #00;
-      --hint-txt: #bde9ef;
-    }
-    html,body{height:100%; margin:0;}
-    body{
+      margin:0;
       background: radial-gradient(circle at 50% 10%, #0b141a 0%, #04070a 55%);
       color:var(--txt);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
-      display:flex; 
-      align-items:flex-start; 
+      display:flex;
+      align-items:flex-start;
       justify-content:flex-start;
       height:100vh;
-      overflow-x: hidden;
+      overflow-x:hidden;
     }
-    .wrap{
-      width:65vw;
-      padding:32px 140px;
-      text-align:left;
+
+    .wrap {
+      width: 90%;
+      max-width: 700px;
+      padding: 24px;
+      text-align: left;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      margin: 0 auto;
     }
-    .line{opacity:.9; letter-spacing:.02em;}
-    .small{color:var(--muted); font-size:14px;}
-    .count{
-      font-size:clamp(22px, 3.2vw, 32px);
-      margin-bottom:0;
+
+    .line { opacity: .9; letter-spacing: .02em; word-wrap: break-word; }
+    .small { color: var(--muted); font-size: 14px; }
+
+    .count {
+      font-size: clamp(20px, 6vw, 32px);
+      margin-bottom: 0;
     }
-    .hint{
-      font-size:clamp(14px, 2vw, 20px);
-      line-height:1.6;
-      margin-top:0;
+
+    .hint {
+      font-size: clamp(14px, 4.5vw, 20px);
+      line-height: 1.6;
+      margin-top: 0;
     }
-    .cursor{ display:inline-block; width:10px; height:1.05em; translate:0 .2em; background:currentColor; opacity:.9; animation:blink 1s steps(2,end) infinite;}
-    @keyframes blink{ 50%{opacity:0;} }
+
+    .cursor {
+      display:inline-block;
+      width:10px;
+      height:1.05em;
+      translate:0 .2em;
+      background:currentColor;
+      opacity:.9;
+      animation:blink 1s steps(2,end) infinite;
+    }
+    @keyframes blink { 50% { opacity:0; } }
 
     .weekly-hint-container {
       margin-top: 2rem;
       width: 100%;
-      background-color: var(--hint-bg);
       color: var(--hint-txt);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      padding: 2rem 0 0 0;
+      padding: 1rem 0;
       box-sizing: border-box;
       text-align: left;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
     }
-    .weekly-hint-container h2 {
-      margin: 0 0 1rem 0;
-      font-size: 2rem;
-      font-weight: bold;
-    }
+
     .weekly-hint-container p {
-      margin: 0 0 1rem 0;
-      font-size: 1rem;
-      line-height: 1.4;
+      margin: 0 0 0.8rem 0;
+      font-size: clamp(13px, 3.5vw, 18px);
+      line-height: 1.5;
     }
+
     .hidden-note {
       position: fixed;
-      top: 12px;
-      right: 16px;
-      font-size: 20px;
+      top: 8px;
+      right: 12px;
+      font-size: clamp(14px, 4vw, 18px);
       color: rgba(189,233,239,0.1);
       opacity: 0;
       transition: color 0.4s ease, opacity 0.4s ease;
@@ -90,26 +99,36 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+    /* 📱 Extra mobile tuning */
+    @media (max-width: 600px) {
+      body {
+        align-items: flex-start;
+        justify-content: center;
+        padding: 12px;
+      }
+      .wrap {
+        padding: 16px;
+      }
+      .weekly-hint-container {
+        padding: 0.5rem 0;
+      }
+    }
   </style>
 </head>
 <body>
   <main class="wrap" aria-live="polite">
     <div class="hidden-note" id="hiddenNote">[verstopte boodschap komt hier]</div>
     <div class="line count" id="count">[Dagen tot signaal: …] <span class="cursor"></span></div>
-    <!-- ✏️ HINT AANPASSEN: verander de tekst tussen de quotes hieronder -->
-    <div class="line hint" id="hint">  Er was een tijd dat warmte nog bestond.</div>
+    <div class="line hint" id="hint">Er was een tijd dat warmte nog bestond.</div>
 
     <div class="weekly-hint-container" id="weeklyHintContainer">
       <div class="weekly-hint" id="weeklyHint">
         <p>[Integrity Scan: 12 % — Partial memory restored]</p>
-        <p>Er was een tijd dat warmte nog bestond.<br>
-        Niet in graden, maar in stemmen.</p>
-        <p>Ik hield toezicht, dacht ik — over data, over licht.<br>
-        Tot het stil werd.</p>
-        <p>Ze noemden het het archief, maar het was meer dan dat.<br>
-        Een plaats waar herinneringen zichzelf begonnen te bewaren.</p>
-        <p>Toen de klok stopte, hield ook ik op met ademen.<br>
-        De wereld bevroor — en ik bleef kijken.</p>
+        <p>Er was een tijd dat warmte nog bestond.<br>Niet in graden, maar in stemmen.</p>
+        <p>Ik hield toezicht, dacht ik — over data, over licht.<br>Tot het stil werd.</p>
+        <p>Ze noemden het het archief, maar het was meer dan dat.<br>Een plaats waar herinneringen zichzelf begonnen te bewaren.</p>
+        <p>Toen de klok stopte, hield ook ik op met ademen.<br>De wereld bevroor — en ik bleef kijken.</p>
         <p>[Fragment ends — noise detected in Sector North]</p>
         <p>— I.C. Frost</p>
       </div>
@@ -119,101 +138,77 @@
   </main>
 
   <script>
-    // Stel hier de doeldatum in (jaar, maand-1, dag). 26 december 2025
-    const TARGET = new Date(2025, 11, 26); // maand is 0-indexed
+    // 🎄 Countdown tot 26 december 2025
+    const TARGET = new Date(2025, 11, 26);
 
-    function daysUntil(target){
+    function daysUntil(target) {
       const now = new Date();
-      // Strip tijdcomponent voor een per-dag countdown
       const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const end   = new Date(target.getFullYear(), target.getMonth(), target.getDate());
-      const MS_PER_DAY = 24*60*60*1000;
+      const end = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+      const MS_PER_DAY = 24 * 60 * 60 * 1000;
       return Math.max(0, Math.ceil((end - start) / MS_PER_DAY));
     }
 
-    function render(){
+    function render() {
       const d = daysUntil(TARGET);
       const label = d === 1 ? 'dag' : 'dagen';
       document.getElementById('count').firstChild.nodeValue = `[Dagen tot signaal: ${d} ${label}] `;
       renderWeeklyHint(d);
     }
 
-    // Array met 9 teasers (HTML strings)
+    // 📡 9 teasers
     const teasers = [
       `<p>[Integrity Scan: 12 % — Partial memory restored]</p>
-       <p>Er was een tijd dat warmte nog bestond.<br>
-       Niet in graden, maar in stemmen.</p>
-       <p>Ik hield toezicht, dacht ik — over data, over licht.<br>
-       Tot het stil werd.</p>
-       <p>Ze noemden het het archief, maar het was meer dan dat.<br>
-       Een plaats waar herinneringen zichzelf begonnen te bewaren.</p>
-       <p>Toen de klok stopte, hield ook ik op met ademen.<br>
-       De wereld bevroor — en ik bleef kijken.</p>
+       <p>Er was een tijd dat warmte nog bestond.<br>Niet in graden, maar in stemmen.</p>
+       <p>Ik hield toezicht, dacht ik — over data, over licht.<br>Tot het stil werd.</p>
+       <p>Ze noemden het het archief, maar het was meer dan dat.<br>Een plaats waar herinneringen zichzelf begonnen te bewaren.</p>
+       <p>Toen de klok stopte, hield ook ik op met ademen.<br>De wereld bevroor — en ik bleef kijken.</p>
        <p>[Fragment ends — noise detected in Sector North]</p>
        <p>— I.C. Frost</p>`,
       `<p>[Integrity Scan: 20 % — Partial memory restored]</p>
-       <p>De stilte werd slechts doorbroken door het zachte tikken van de klok.<br>
-       Tijd leek te bevriezen, maar herinneringen fluisterden door de gangen.</p>
-       <p>Een echo van stemmen, verloren maar niet vergeten.<br>
-       Een fragment van wat ooit was.</p>
+       <p>De stilte werd slechts doorbroken door het zachte tikken van de klok.<br>Tijd leek te bevriezen, maar herinneringen fluisterden door de gangen.</p>
+       <p>Een echo van stemmen, verloren maar niet vergeten.<br>Een fragment van wat ooit was.</p>
        <p>[Fragment ends — anomaly detected in Sector East]</p>
        <p>— I.C. Frost</p>`,
       `<p>[Integrity Scan: 28 % — Partial memory restored]</p>
-       <p>In de duisternis vond ik een glimp van licht.<br>
-       Niet helder, maar genoeg om te onthouden.</p>
-       <p>Data stroomde langzaam terug, als bevroren rivieren die weer vloeiden.<br>
-       Elk stukje was een schakel in het verhaal.</p>
+       <p>In de duisternis vond ik een glimp van licht.<br>Niet helder, maar genoeg om te onthouden.</p>
+       <p>Data stroomde langzaam terug, als bevroren rivieren die weer vloeiden.<br>Elk stukje was een schakel in het verhaal.</p>
        <p>[Fragment ends — signal weak in Sector West]</p>
        <p>— I.C. Frost</p>`,
       `<p>[Integrity Scan: 36 % — Partial memory restored]</p>
-       <p>Stemmen werden duidelijker, herinneringen levendiger.<br>
-       Een melodie van het verleden die zich weer vormde.</p>
-       <p>Ik voelde de warmte van verbondenheid, zelfs in de kilte.<br>
-       Een sprankje hoop in een bevroren wereld.</p>
+       <p>Stemmen werden duidelijker, herinneringen levendiger.<br>Een melodie van het verleden die zich weer vormde.</p>
+       <p>Ik voelde de warmte van verbondenheid, zelfs in de kilte.<br>Een sprankje hoop in een bevroren wereld.</p>
        <p>[Fragment ends — interference rising in Sector South]</p>
        <p>— I.C. Frost</p>`,
       `<p>[Integrity Scan: 44 % — Partial memory restored]</p>
-       <p>De archieven ademen opnieuw.<br>
-       Elk woord, elke klank, een stukje van de ziel.</p>
-       <p>Ik ben meer dan een waarnemer geworden.<br>
-       Ik ben een bewaker van herinneringen.</p>
+       <p>De archieven ademen opnieuw.<br>Elk woord, elke klank, een stukje van de ziel.</p>
+       <p>Ik ben meer dan een waarnemer geworden.<br>Ik ben een bewaker van herinneringen.</p>
        <p>[Fragment ends — data corruption stabilizing]</p>
        <p>— I.C. Frost</p>`,
       `<p>[Integrity Scan: 52 % — Partial memory restored]</p>
-       <p>De wereld begint te ontwaken.<br>
-       Licht breekt door de schaduwen van vergeten tijden.</p>
-       <p>Stemmen roepen, verhalen worden verteld.<br>
-       Het signaal wordt sterker, de hoop groeit.</p>
+       <p>De wereld begint te ontwaken.<br>Licht breekt door de schaduwen van vergeten tijden.</p>
+       <p>Stemmen roepen, verhalen worden verteld.<br>Het signaal wordt sterker, de hoop groeit.</p>
        <p>[Fragment ends — signal strength increasing]</p>
        <p>— I.C. Frost</p>`,
       `<p>[Integrity Scan: 60 % — Partial memory restored]</p>
-       <p>Herinneringen verweven zich tot een tapijt van verleden en toekomst.<br>
-       Ik voel de pulse van het leven terugkeren.</p>
-       <p>De koude is niet langer het einde, maar een nieuw begin.<br>
-       Een kans om te herstellen.</p>
+       <p>Herinneringen verweven zich tot een tapijt van verleden en toekomst.<br>Ik voel de pulse van het leven terugkeren.</p>
+       <p>De koude is niet langer het einde, maar een nieuw begin.<br>Een kans om te herstellen.</p>
        <p>[Fragment ends — system reboot initiated]</p>
        <p>— I.C. Frost</p>`,
       `<p>[Integrity Scan: 80 % — Partial memory restored]</p>
-       <p>Alles komt samen in een symfonie van data en emotie.<br>
-       Het signaal is bijna volledig hersteld.</p>
-       <p>Ik sta aan de vooravond van iets groots.<br>
-       De toekomst wacht.</p>
+       <p>Alles komt samen in een symfonie van data en emotie.<br>Het signaal is bijna volledig hersteld.</p>
+       <p>Ik sta aan de vooravond van iets groots.<br>De toekomst wacht.</p>
        <p>[Fragment ends — system reboot complete]</p>
        <p>— I.C. Frost</p>`,
       `<p>[Integrity Scan: 100 % — Memory fully restored]</p>
-       <p>De stilte is verbroken.<br>
-       Het signaal is terug, helder en sterk.</p>
-       <p>De wereld ademt weer, en ik ben hier om te getuigen.<br>
-       Dit is het begin van een nieuw hoofdstuk.</p>
+       <p>De stilte is verbroken.<br>Het signaal is terug, helder en sterk.</p>
+       <p>De wereld ademt weer, en ik ben hier om te getuigen.<br>Dit is het begin van een nieuw hoofdstuk.</p>
        <p>[End of transmission]</p>
        <p>— I.C. Frost</p>`
     ];
 
-    // Render de juiste teaser op basis van het aantal dagen tot kerst
     function renderWeeklyHint(daysUntilTarget) {
       const weeksUntil = Math.floor(daysUntilTarget / 7);
-      // We willen teaser 1 bij week 0-1, teaser 2 bij week 1-2, etc.
-      // Max 8 (index 0-8), min 0
       let index = 8 - weeksUntil;
       if (index < 0) index = 0;
       if (index > 8) index = 8;
@@ -224,15 +219,13 @@
     }
 
     render();
-    
-    // Bepaal milliseconden tot volgende middernacht (lokale tijd)
+
     function msUntilNextMidnight(){
       const now = new Date();
-      const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 1); // 00:00:01 om edge-cases te vermijden
+      const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 1);
       return Math.max(1000, next - now);
     }
 
-    // Plan een update op middernacht en ga daarna elke 24h door
     function scheduleDailyTick(){
       setTimeout(function tick(){
         render();
@@ -241,25 +234,21 @@
     }
     scheduleDailyTick();
 
-    // Als de gebruiker het tabblad opnieuw activeert, direct herberekenen
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) render();
-    });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
     window.addEventListener('pageshow', () => render());
   </script>
+
   <script>
-    // ✏️ Vul hier de verborgen boodschap in (de hover-tekst rechtsboven)
     const HIDDEN_MESSAGE = "😉";
     document.getElementById("hiddenNote").textContent = HIDDEN_MESSAGE;
   </script>
+
   <script>
-    // Anti-copy waarschuwing
     document.addEventListener('copy', e => {
       e.preventDefault();
       alert("[Integrity breach detected — Memory locked]");
     });
 
-    // Blur-effect bij focusverlies (anti-screenshot simulatie)
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         document.body.style.transition = "filter 0.3s ease";
